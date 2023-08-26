@@ -13,7 +13,7 @@ func main() {
 	if err != nil {
 		fmt.Println("Ошибка при изменении прав доступа:", err)
 		return
-	}
+	}``
 
 	fmt.Println("Права доступа к файлу успешно изменены.")
 }

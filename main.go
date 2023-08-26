@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"net/http"
 )
 
@@ -10,7 +11,11 @@ func main() {
 	http.HandleFunc("/echo", echoHandler)
 
 	// server go
-	http.ListenAndServe(":8080", nil)
+	err := http.ListenAndServe(":8080", nil) // устанавливаем порт веб-сервера
+	//err := http.ListenAndServeTLS(":8080", "cert.pem", "key.pem", nil)
+	if err != nil {
+		log.Fatal("ListenAndServe: ", err)
+	}
 }
 
 func rootHandler(w http.ResponseWriter, r *http.Request) {
@@ -18,7 +23,7 @@ func rootHandler(w http.ResponseWriter, r *http.Request) {
 	clientIP := r.RemoteAddr
 
 	// Terminal output
-	fmt.Printf("HTTP reqest: %s %s %s\n", clientIP, r.Method, r.URL.Path)
+	fmt.Printf("HTTP reqest to /: %s %s %s\n", clientIP, r.Method, r.URL.Path)
 
 	// http response
 	fmt.Fprintf(w, "Yo, this is GO simple server!")
@@ -32,7 +37,7 @@ func echoHandler(w http.ResponseWriter, r *http.Request) {
 	body := r.URL.Query().Get("data")
 
 	// Terminal output
-	fmt.Printf("HTTP reqest: %s %s %s\n", clientIP, r.Method, r.URL.Path)
+	fmt.Printf("HTTP reqest to /echo: %s %s %s\n", clientIP, r.Method, r.URL.Path)
 
 	// Response
 	fmt.Fprintf(w, "You send me : %s", body)
