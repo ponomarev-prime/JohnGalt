@@ -6,22 +6,34 @@ import (
 )
 
 func main() {
-	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		clientIP := r.RemoteAddr
-		fmt.Printf("HTTP reqest: %s %s %s\n", clientIP, r.Method, r.URL.Path)
-		fmt.Fprintf(w, "Привет, это простой HTTP-сервер на Go!")
-	})
+	http.HandleFunc("/", rootHandler)
+	http.HandleFunc("/echo", echoHandler)
 
-	http.HandleFunc("/echo", func(w http.ResponseWriter, r *http.Request) {
-		clientIP := r.RemoteAddr
-		// Чтение данных из тела запроса
-		body := r.URL.Query().Get("data")
-
-		// Отправка данных клиенту в ответ на запрос
-		fmt.Fprintf(w, "Вы отправили: %s", body)
-		fmt.Printf("HTTP reqest: %s %s %s\n", clientIP, r.Method, r.URL.Path)
-	})
-
-	// Запуск HTTP-сервера на порту 8080
+	// server go
 	http.ListenAndServe(":8080", nil)
+}
+
+func rootHandler(w http.ResponseWriter, r *http.Request) {
+	// client IP
+	clientIP := r.RemoteAddr
+
+	// Terminal output
+	fmt.Printf("HTTP reqest: %s %s %s\n", clientIP, r.Method, r.URL.Path)
+
+	// http response
+	fmt.Fprintf(w, "Yo, this is GO simple server!")
+}
+
+func echoHandler(w http.ResponseWriter, r *http.Request) {
+	// client IP
+	clientIP := r.RemoteAddr
+
+	// read data from reqest
+	body := r.URL.Query().Get("data")
+
+	// Terminal output
+	fmt.Printf("HTTP reqest: %s %s %s\n", clientIP, r.Method, r.URL.Path)
+
+	// Response
+	fmt.Fprintf(w, "You send me : %s", body)
 }

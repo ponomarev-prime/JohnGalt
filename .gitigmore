@@ -41,6 +41,7 @@ test.out
 
 # Dirs
 compiled/
+back/
 
 # Compiled binary
 main
