@@ -39,9 +39,10 @@ test.out
 *.iws
 *.ipr
 
-# Dirs
-compiled/
-back/
-
 # Compiled binary
 main
+
+# My
+compiled/
+back/
+.bak
