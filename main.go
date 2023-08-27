@@ -9,7 +9,9 @@ import (
 func main() {
 	http.HandleFunc("/", rootHandler)
 	http.HandleFunc("/echo", echoHandler)
+	http.HandleFunc("/html", pageHandler)
 
+	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("static"))))
 	// server go
 	err := http.ListenAndServe(":8080", nil) // устанавливаем порт веб-сервера
 	//err := http.ListenAndServeTLS(":8080", "cert.pem", "key.pem", nil)
@@ -41,4 +43,13 @@ func echoHandler(w http.ResponseWriter, r *http.Request) {
 
 	// Response
 	fmt.Fprintf(w, "You send me : %s", body)
+}
+
+func pageHandler(w http.ResponseWriter, r *http.Request) {
+	// client IP
+	clientIP := r.RemoteAddr
+
+	fmt.Printf("HTTP reqest to /: %s %s %s\n", clientIP, r.Method, r.URL.Path)
+
+	http.ServeFile(w, r, "index.html")
 }
