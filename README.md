@@ -23,3 +23,11 @@ drwxr-xr-x 2 alex alex    4096 Sep  6 23:39 ./
 drwxr-xr-x 4 alex alex    4096 Sep  6 23:39 ../
 -rwxr-xr-x 1 alex alex 6904712 Sep  6 23:39 JohnGalt*
 ```
+
+
+# Args
+
+```
+PS C:\Users\ponom\Documents\CODE\JohnGalt> go run .\args.go Yo yo yo 1 11 111111111111 -1 0 //
+Yo yo yo 1 11 111111111111 -1 0 //
+```
